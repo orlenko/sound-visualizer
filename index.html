@@ -36,22 +36,25 @@
         left: 50%;
         transform: translateX(-50%);
         display: flex;
-        gap: 12px;
-        padding: 16px 24px;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 12px 20px;
         background: rgba(0, 0, 0, 0.7);
         backdrop-filter: blur(10px);
         border-radius: 12px;
         border: 1px solid rgba(255, 255, 255, 0.1);
         z-index: 100;
+        max-width: 90vw;
       }
 
       .control-btn {
-        padding: 10px 20px;
+        padding: 8px 14px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         border: none;
         border-radius: 8px;
         color: white;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 500;
         cursor: pointer;
         transition: all 0.2s ease;
@@ -150,9 +153,13 @@
         <button class="control-btn" data-preset="spectrum">Spectrum</button>
         <button class="control-btn" data-preset="circular">Circular</button>
         <button class="control-btn" data-preset="particles">Particles</button>
+        <button class="control-btn" data-preset="starfield">Starfield</button>
+        <button class="control-btn" data-preset="plasma">Plasma</button>
+        <button class="control-btn" data-preset="matrix">Matrix</button>
+        <button class="control-btn" data-preset="terrain">Terrain</button>
       </div>
 
-      <div class="info-text">Press 1-4 to switch presets • Space to toggle fullscreen</div>
+      <div class="info-text">Press 1-8 to switch presets • Space to toggle fullscreen</div>
     </div>
     <script type="module" src="/src/main.ts"></script>
   </body>

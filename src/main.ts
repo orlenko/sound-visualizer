@@ -4,6 +4,10 @@ import { Oscilloscope } from './visualizers/Oscilloscope';
 import { Spectrum } from './visualizers/Spectrum';
 import { Circular } from './visualizers/Circular';
 import { Particles } from './visualizers/Particles';
+import { Starfield } from './visualizers/Starfield';
+import { Plasma } from './visualizers/Plasma';
+import { Matrix } from './visualizers/Matrix';
+import { Terrain } from './visualizers/Terrain';
 
 /**
  * Sound Visualizer - Winamp-inspired audio visualization
@@ -26,6 +30,10 @@ visualizerEngine.registerVisualizer('oscilloscope', new Oscilloscope());
 visualizerEngine.registerVisualizer('spectrum', new Spectrum());
 visualizerEngine.registerVisualizer('circular', new Circular());
 visualizerEngine.registerVisualizer('particles', new Particles());
+visualizerEngine.registerVisualizer('starfield', new Starfield());
+visualizerEngine.registerVisualizer('plasma', new Plasma());
+visualizerEngine.registerVisualizer('matrix', new Matrix());
+visualizerEngine.registerVisualizer('terrain', new Terrain());
 
 // Set default visualizer
 visualizerEngine.setVisualizer('oscilloscope');
@@ -35,7 +43,11 @@ const presetKeys: Record<string, string> = {
   '1': 'oscilloscope',
   '2': 'spectrum',
   '3': 'circular',
-  '4': 'particles'
+  '4': 'particles',
+  '5': 'starfield',
+  '6': 'plasma',
+  '7': 'matrix',
+  '8': 'terrain'
 };
 
 /**
@@ -124,4 +136,4 @@ window.addEventListener('beforeunload', () => {
 
 // Log startup
 console.log('Sound Visualizer initialized');
-console.log('Press 1-4 to switch presets, Space to toggle fullscreen');
+console.log('Press 1-8 to switch presets, Space to toggle fullscreen');
