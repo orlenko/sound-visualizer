@@ -4,13 +4,14 @@ import type { Visualizer } from './Visualizer';
 /**
  * Terrain - 3D wireframe terrain that morphs with audio
  * Retro vector graphics style with audio-reactive hills
+ * Maintains deep history so distant lines show older sound "memory"
  */
 export class Terrain implements Visualizer {
   name = 'TERRAIN';
 
   private offset = 0;
   private history: number[][] = [];
-  private historyLength = 40;
+  private historyLength = 100; // Deep history for sound "memory"
 
   render(
     ctx: CanvasRenderingContext2D,
@@ -48,9 +49,9 @@ export class Terrain implements Visualizer {
     // Scroll speed based on bass
     this.offset += 1 + bass * 3;
 
-    // Perspective settings
-    const horizonY = height * 0.35;
-    const groundY = height * 0.95;
+    // Perspective settings - higher horizon for more visible history
+    const horizonY = height * 0.25;
+    const groundY = height * 0.98;
     const vanishX = width * 0.5;
 
     // Draw grid lines (depth)
@@ -67,11 +68,12 @@ export class Terrain implements Visualizer {
       const rowWidth = width * perspective;
       const startX = vanishX - rowWidth / 2;
 
-      // Color based on depth and audio
-      const hue = (time * 30 + z * 5 + bass * 50 + mid * 30) % 360;
-      const alpha = (1 - zRatio) * (0.6 + average * 0.4);
+      // Color based on depth and audio - older lines fade to cooler colors
+      const ageHueShift = zRatio * 60; // Shift hue towards blue/purple for older lines
+      const hue = (time * 30 + z * 3 + bass * 50 + mid * 30 - ageHueShift) % 360;
+      const alpha = Math.pow(1 - zRatio, 0.7) * (0.6 + average * 0.4); // More gradual fade
       const lightness = 50 + (1 - zRatio) * 30 + treble * 20;
-      const saturation = 80 + mid * 20;
+      const saturation = 80 + mid * 20 - zRatio * 20; // Desaturate distant lines
 
       ctx.strokeStyle = `hsla(${hue}, ${saturation}%, ${lightness}%, ${alpha})`;
       ctx.lineWidth = (1 - zRatio) * 2 + 0.5 + treble;
@@ -82,9 +84,9 @@ export class Terrain implements Visualizer {
         const xRatio = x / (points - 1);
         const px = startX + rowWidth * xRatio;
 
-        // Height from frequency data
-        const heightValue = rowHeights[x] * (1 - zRatio * 0.5);
-        const py = y - heightValue * 150 * (1 - zRatio * 0.7);
+        // Height from frequency data - maintain amplitude for older lines
+        const heightValue = rowHeights[x] * (1 - zRatio * 0.3); // Less height reduction
+        const py = y - heightValue * 180 * (1 - zRatio * 0.5); // Taller peaks
 
         if (x === 0) {
           ctx.moveTo(px, py);
@@ -96,7 +98,7 @@ export class Terrain implements Visualizer {
       ctx.stroke();
 
       // Draw vertical lines connecting to previous row for 3D effect
-      if (z < rows - 1 && z % 2 === 0) {
+      if (z < rows - 1 && z % 3 === 0) { // Every 3rd row for cleaner look with more history
         const prevRowHeights = this.history[z + 1];
         if (!prevRowHeights) continue;
 
@@ -117,8 +119,8 @@ export class Terrain implements Visualizer {
           const py = y - heightValue * 150 * (1 - zRatio * 0.7);
 
           const prevPx = prevStartX + prevRowWidth * xRatio;
-          const prevHeightValue = prevRowHeights[x] * (1 - prevZRatio * 0.5);
-          const prevPy = prevY - prevHeightValue * 150 * (1 - prevZRatio * 0.7);
+          const prevHeightValue = prevRowHeights[x] * (1 - prevZRatio * 0.3);
+          const prevPy = prevY - prevHeightValue * 180 * (1 - prevZRatio * 0.5);
 
           ctx.beginPath();
           ctx.moveTo(px, py);
