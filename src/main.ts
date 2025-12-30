@@ -8,6 +8,7 @@ import { Starfield } from './visualizers/Starfield';
 import { Plasma } from './visualizers/Plasma';
 import { Matrix } from './visualizers/Matrix';
 import { Terrain } from './visualizers/Terrain';
+import { Geiss } from './visualizers/Geiss';
 
 /**
  * Sound Visualizer - Winamp-inspired audio visualization
@@ -34,6 +35,7 @@ visualizerEngine.registerVisualizer('starfield', new Starfield());
 visualizerEngine.registerVisualizer('plasma', new Plasma());
 visualizerEngine.registerVisualizer('matrix', new Matrix());
 visualizerEngine.registerVisualizer('terrain', new Terrain());
+visualizerEngine.registerVisualizer('geiss', new Geiss());
 
 // Set default visualizer
 visualizerEngine.setVisualizer('oscilloscope');
@@ -47,7 +49,8 @@ const presetKeys: Record<string, string> = {
   '5': 'starfield',
   '6': 'plasma',
   '7': 'matrix',
-  '8': 'terrain'
+  '8': 'terrain',
+  '9': 'geiss'
 };
 
 /**
@@ -136,4 +139,4 @@ window.addEventListener('beforeunload', () => {
 
 // Log startup
 console.log('Sound Visualizer initialized');
-console.log('Press 1-8 to switch presets, Space to toggle fullscreen');
+console.log('Press 1-9 to switch presets, Space to toggle fullscreen');
