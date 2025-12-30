@@ -5,11 +5,16 @@ Winamp-inspired audio visualizer that runs entirely in the browser. Uses the Web
 ## Features
 
 - **Real-time audio visualization** - Captures sound from your microphone
-- **4 Visualization Presets**:
+- **9 Visualization Presets**:
   - **Oscilloscope** - Classic waveform display with glowing effects
   - **Spectrum** - Bar-based frequency analyzer with peak indicators
   - **Circular** - Radial frequency visualization inspired by Milkdrop
   - **Particles** - Explosive particle system that reacts to bass
+  - **Starfield** - 3D starfield that warps with bass and pulses with music
+  - **Plasma** - Classic demoscene plasma effect with flowing color patterns
+  - **Matrix** - Iconic falling code rain that reacts to audio
+  - **Terrain** - 3D wireframe terrain with audio-reactive hills
+  - **Geiss** - Faithful recreation of the legendary Geiss Winamp visualization
 
 ## Getting Started
 
@@ -43,7 +48,7 @@ The built files will be in the `dist/` directory.
 
 ## Controls
 
-- **1-4** - Switch between visualization presets
+- **1-9** - Switch between visualization presets
 - **Space** - Toggle fullscreen mode
 - **Click preset buttons** - Switch visualizations
 
